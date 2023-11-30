@@ -28,25 +28,36 @@ private:
 
     std::vector<GridLocation> path;
     GridLocation target;
+    bool done;
 
 protected:
 
     void startVisit(Vertex& v) {
         GridLocation vertexLocation = (*v).element;
-        // TODO
+        path.push_back(vertexLocation);
+        if (vertexLocation == target) {
+            done = true;
+        }
     }
 
     void finishVisit(const Vertex& v) {
-        // TODO
+        if (!done) {
+            path.pop_back();
+        }
     }
 
     bool isDone() const {
-        // TODO
+        return done;
     }
 
 public:
 
     const std::vector<GridLocation>& findPath(Vertex& s, const GridLocation& t) {
-        // TODO
+        initialize();
+        path.clear();
+        target = t;
+        done = false;
+        traverse(s);
+        return path; 
     }
 };
